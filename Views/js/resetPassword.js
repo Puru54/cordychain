@@ -42,7 +42,7 @@ const resetPassword = async ( email,password) => {
     try {
         const res = await axios({
             method: 'PATCH',
-            url: `http://localhost:4002/api/v1/users/email/${email}`,
+            url: `https://cordychain.onrender.com/api/v1/users/email/${email}`,
             data: {
                 email,
                 password,

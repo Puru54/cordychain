@@ -62,7 +62,7 @@ input{
     const userEmail = emailInput.value;
 
     // Make an API call to fetch the OTP from the backend
-    fetch('http://localhost:4002/api/v1/users')
+    fetch('https://cordychain.onrender.com/api/v1/users')
         .then(response => response.json())
         .then(objectData => {
             // Find user with matching email

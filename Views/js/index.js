@@ -4,7 +4,7 @@ const logout = async () => {
     try{
         const res = await axios({
             method: "POST",
-            url: "http://localhost:4002/api/v1/users/logout",
+            url: "https://cordychain.onrender.com/api/v1/users/logout",
 
         })
         if (res.data.status === 'success') {

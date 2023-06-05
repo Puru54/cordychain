@@ -1,4 +1,4 @@
-fetch('http://localhost:4002/api/v1/bafra').then((jsonData)=>{
+fetch('https://cordychain.onrender.com/api/v1/bafra').then((jsonData)=>{
     //console.log(jsonData)//data in json formate
     return jsonData.json()//conerted to object
 }).then((objectData)=>{
