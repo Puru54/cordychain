@@ -34,7 +34,7 @@ import { showAlert } from "./alert.js"
 export const signup = async (name, email, eID, password) => {
   try {
     // Fetch data from the API endpoint
-    const response = await fetch('http://localhost:4002/api/v1/bafra');
+    const response = await fetch('https://cordychain.onrender.com/api/v1/bafra');
     const jsonData = await response.json();
     const bafraData = jsonData.data;
     
@@ -45,7 +45,7 @@ export const signup = async (name, email, eID, password) => {
       // eID matches a bafraId, proceed with signup
       const res = await axios({
         method: 'POST',
-        url: 'http://localhost:4002/api/v1/users/signup',
+        url: 'https://cordychain.onrender.com/api/v1/users/signup',
         data: {
           name,
           email,

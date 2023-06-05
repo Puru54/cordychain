@@ -13,7 +13,7 @@ const login = async (email, password) => {
     try {
         const res = await axios({
             method: 'POST',
-            url: 'http://localhost:4002/api/v1/users/login',
+            url: 'https://cordychain.onrender.com/api/v1/users/login',
             data: {
                 email,
                 password,
