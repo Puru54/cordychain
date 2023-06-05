@@ -1,0 +1,34 @@
+.slideshow-container {
+  position: relative;
+}
+
+.slide {
+  display: none;
+}
+
+.slide img {
+  width: 50%;
+  height: auto;
+}
+
+.prev,
+.next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 24px;
+  color: #ffffff;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 10px;
+  cursor: pointer;
+  text-decoration: none;
+  user-select: none;
+}
+
+.prev {
+  left: 10px;
+}
+
+.next {
+  right: 10px;
+}

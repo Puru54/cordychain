@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Product Registry</title>
+    <script src="https://cdn.ethers.io/lib/ethers-5.2.umd.min.js" integrity="sha384-mKx/YvO2y76kRZY0IZt/lz9tC3qSeZcYtZck+TGKPAifPTx4b4kLJ06H1O2QX5g5" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.4.4/qrcode.min.js"></script>
+</head>
+<body>
+    <h1>Product Registry</h1>
+    <form>
+        <label for="quality">Quality:</label>
+        <input type="text" id="quality" name="quality"><br>
+
+        <label for="quantity">Quantity:</label>
+        <input type="text" id="quantity" name="quantity"><br>
+
+        <label for="exporter">Exporter License:</label>
+        <input type="text" id="exporter" name="exporter"><br>
+
+        <label for="harvestor">Harvestor:</label>
+        <input type="text" id="harvestor" name="harvestor"><br>
+
+        <label for="source">Source:</label>
+        <input type="text" id="source" name="source"><br>
+
+        <button type="button" onclick="createProduct()">Create Product</button>
+    </form>
+
+    <div id="qrCode"></div>
+
+    <script>
+        const contractAddress = 'CONTRACT_ADDRESS';
+        const abi = CONTRACT_ABI;
+        const provider = new ethers.providers.Web3Provider(web3.currentProvider);
+        const contract = new ethers.Contract(contractAddress, abi, provider);
+        
+        async function createProduct() {
+            const quality = document.getElementById('quality').value;
+            const quantity = document.getElementById('quantity').value;
+            const exporter = document.getElementById('exporter').value;
+            const harvestor = document.getElementById('harvestor').value;
+            const source = document.getElementById('source').value;
+
+            await contract.createProduct(quality, quantity, exporter, harvestor, source);
+
+            const productCount = await contract.productCount();
+            const product = await contract.products(productCount);
+
+            const qrCode = new QRCode(document.getElementById("qrCode"), {
+                text: product.qrCode,
+                width: 128,
+                height: 128,
+                colorDark : "#000000",
+                colorLight : "#ffffff",
+                correctLevel : QRCode.CorrectLevel.H
+            });
+        }
+    </script>
+</body>
+</html>

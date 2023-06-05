@@ -1,0 +1,82 @@
+body {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 0.9rem;
+}
+
+.mail-veri {
+    width: 50%;
+    border: 1px solid black;
+    border-radius: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-left: 20rem;
+    margin-right: 15rem;
+    margin-top: 10rem;
+
+}
+
+.mail-veri h3 {
+    margin-bottom: 1rem;
+}
+
+.mail-veri input[type="email"] {
+    margin-bottom: 1rem;
+    width: 67%;
+    padding: 0.5rem;
+}
+
+.mail-veri .btn-send {
+    margin-bottom: 1rem;
+    width: 70%;
+    padding: 0.5rem;
+    background-color: black;
+    color: white;
+    border-radius: 0.5rem;
+}
+
+.popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #f9f9f9;
+    padding: 20px;
+    border: 1px solid #ccc;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+    z-index: 9999;
+    display: none;
+}
+
+/* Style for the overlay */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none;
+    z-index: 9998;
+}
+
+/* Style for the form */
+.popup form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Style for the input field and button */
+.popup input[type="text"] {
+    margin-top: 1.5rem;
+    padding: 0.5rem;
+}
+.popup button {
+    width: 87%;
+    margin-bottom: 1.5rem;
+    background-color: black;
+    color: white;
+    padding: 0.5rem;
+
+}

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./CSS/otp.css">
+  <script src="https://smtpjs.com/v3/smtp.js"></script>
+  <title>Verify OTP</title>
+</head>
+<style>
+body{
+  text-align: center;
+}
+.form{
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+  margin: auto;
+}
+input{
+  padding: 0.6rem;
+}
+.btn{
+  padding: 0.5rem 0.8rem;
+  background-color: violet;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  border-radius: 16px;
+}
+.otpverify{
+  display: none;
+}
+</style>
+<body>
+
+    <h1>verify email</h1>
+    <div class="form">
+        <input type="email" id="email" placeholder="Enter Email...">
+
+        <div class="otpverify">
+            <input type="text" id="otp_inp" placeholder="Enter the OTP sent to your Email...">
+            <button class="btn" id="otp-btn">Verify</button>
+        </div>
+
+        <button onclick="sendOTP()" class="btn">Send OTP</button>
+    </div>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.27.2/axios.min.js"></script>
+    <script src="./js/sentotp.js"></script> -->
+</body>
+
+<script>
+  function sendOTP() {
+    const emailInput = document.getElementById('email');
+    const otpVerify = document.getElementsByClassName('otpverify')[0];
+
+    // Collect the email entered by the user
+    const userEmail = emailInput.value;
+
+    // Make an API call to fetch the OTP from the backend
+    fetch('http://localhost:4002/api/v1/users')
+        .then(response => response.json())
+        .then(objectData => {
+            // Find user with matching email
+            const matchedUser = objectData.data.find(user => user.email === userEmail);
+
+            if (matchedUser) {
+                const otp = matchedUser.otp; // Get the OTP from the user schema
+
+                const emailBody = `
+                    <h1>Please </h1> <br>
+                    <h2>Your OTP is </h2>${otp}
+                `;
+
+                Email.send({
+                    SecureToken: "b6bb0eff-9b38-4e28-ac31-62cdd7b710a6",
+                    To: userEmail,
+                    From: "purugcit79@gmail.com",
+                    Subject: "This",
+                    Body: emailBody
+                }).then(message => {
+                    if (message === "OK") {
+                        alert("OTP sent to your email " + userEmail);
+
+                        // Make the OTP input field visible
+                        otpVerify.style.display = "block";
+                        const otpInput = document.getElementById('otp_inp');
+                        const otpButton = document.getElementById('otp-btn');
+
+                        otpButton.addEventListener('click', () => {
+                            // Check if the entered OTP matches the fetched OTP
+                            if (otpInput.value == otp) {
+                                alert("Email address verified...");
+                                window.setTimeout(() => {
+                                location.assign('/login')
+                                 }, 1500)
+
+                            } else {
+                                alert("Invalid OTP");
+                            }
+                        });
+                    }
+                });
+            } else {
+                alert("User not found");
+            }
+        })
+        .catch(error => {
+            console.log("Error:", error);
+            alert("An error occurred while fetching the OTP");
+        });
+}
+
+</script>
+</html>

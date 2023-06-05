@@ -1,0 +1,84 @@
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #ffffff; 
+  background-image: url('../img/images.jpeg'), url('../img/image2-3\ 2.png');
+  background-size: 100% 25%, 100% 75%;
+  background-position: top, bottom;
+  background-repeat: no-repeat;
+  background-attachment: fixed, fixed;
+}
+
+h1 {
+  text-align: center;
+}
+
+form {
+  padding: 20px;
+  width: 60%;
+  height: 500px;
+  border: black 1px solid;
+  border-radius: 5px;
+  margin-left: 20%;
+  margin-top: 3%;
+  margin-top: 5%;
+  margin-bottom: 20px;
+  background-color: #ffffff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.16), 0 2px 6px rgba(0, 0, 0, 0.23);
+  opacity: 90%;
+}
+
+.sttyle{
+  margin-left: 50px;
+}
+form:hover {
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2), 0 4px 10px rgba(0, 0, 0, 0.3);
+  transform: translateY(-2px);
+}
+
+label {
+  display: block;
+  margin-bottom: 10px;
+}
+
+input[type="number"] {
+  padding: 5px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+button[type="submit"] {
+  padding: 6px 20px;
+  margin-top: 20px;
+  border-radius: 34px;
+  background-color: #4CAF50;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+#productInfo {
+  display: none;
+  margin-top: 20px;
+}
+
+h2 {
+  margin-bottom: 10px;
+}
+
+p {
+  margin-bottom: 5px;
+}
+
+strong {
+  font-weight: bold;
+}
+
+span {
+  font-weight: normal;
+  margin-left: 5px;
+}
+
+#markScannedBtn {
+  margin-top: 10px;
+}

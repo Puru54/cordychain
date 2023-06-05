@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./CSS/scan.css">
+  <title>Product Details</title>
+</head>
+<body>
+
+  <form id="productForm">
+    <h1>Product Details</h1>
+    <label for="productId">Product ID:</label>
+    <input type="number" id="productId" required>
+    <button type="submit">Get Details</button>
+    <div id="productInfo" style="display: none;">
+      <h2>Product Information</h2>
+      <p><strong>PID:</strong> <span id="pid"></span></p>
+      <p><strong>Quality:</strong> <span id="quality"></span></p>
+      <p><strong>Quantity:</strong> <span id="quantity"></span></p>
+      <p><strong>Exporter License:</strong> <span id="exporterLicense"></span></p>
+      <p><strong>Harvester:</strong> <span id="harvester"></span></p>
+      <p><strong>Source:</strong> <span id="source"></span></p>
+  
+      <!-- <button id="markScannedBtn">Mark as Scanned</button> -->
+    </div>
+  </form>
+
+  <!-- <div id="productInfo" style="display: none;">
+    <h2>Product Information</h2>
+    <p><strong>PID:</strong> <span id="pid"></span></p>
+    <p><strong>Quality:</strong> <span id="quality"></span></p>
+    <p><strong>Quantity:</strong> <span id="quantity"></span></p>
+    <p><strong>Exporter License:</strong> <span id="exporterLicense"></span></p>
+    <p><strong>Harvester:</strong> <span id="harvester"></span></p>
+    <p><strong>Source:</strong> <span id="source"></span></p>
+
+    <!-- <button id="markScannedBtn">Mark as Scanned</button> 
+  </div> -->
+
+  <script src="https://cdn.jsdelivr.net/npm/qr-code-generator@1.4.0/dist/qrcode.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/web3@1.5.2/dist/web3.min.js"></script>
+  <script>
+    // Connect to the blockchain using Web3
+    let web3;
+    let contract;
+    const contractAddress = "0xCf62F9d9b11F31ef7Af9D8c95a1adfddb7f7B1C7";
+    const contractABI = [
+    {
+      "inputs": [],
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "_id",
+          "type": "uint256"
+        },
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "pid",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "string",
+          "name": "quality",
+          "type": "string"
+        },
+        {
+          "indexed": false,
+          "internalType": "string",
+          "name": "quantity",
+          "type": "string"
+        },
+        {
+          "indexed": false,
+          "internalType": "string",
+          "name": "exporterLicense",
+          "type": "string"
+        },
+        {
+          "indexed": false,
+          "internalType": "string",
+          "name": "harvestor",
+          "type": "string"
+        },
+        {
+          "indexed": false,
+          "internalType": "string",
+          "name": "source",
+          "type": "string"
+        }
+      ],
+      "name": "CreateProductEvent",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "bytes",
+          "name": "qrCode",
+          "type": "bytes"
+        }
+      ],
+      "name": "QRCodeEvent",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "bytes",
+          "name": "qrCode",
+          "type": "bytes"
+        }
+      ],
+      "name": "ScanQRCodeEvent",
+      "type": "event"
+    },
+    {
+      "inputs": [],
+      "name": "productCount",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function",
+      "constant": true
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "name": "products",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "_id",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "pid",
+          "type": "uint256"
+        },
+        {
+          "internalType": "string",
+          "name": "quality",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "quantity",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "exporterLicense",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "harvestor",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "source",
+          "type": "string"
+        },
+        {
+          "internalType": "bool",
+          "name": "scanned",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function",
+      "constant": true
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes",
+          "name": "",
+          "type": "bytes"
+        }
+      ],
+      "name": "qrCodesScanned",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function",
+      "constant": true
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "pid",
+          "type": "uint256"
+        },
+        {
+          "internalType": "string",
+          "name": "_quality",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "_quantity",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "_exporterLicense",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "_harvestor",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "_source",
+          "type": "string"
+        }
+      ],
+      "name": "createProduct",
+      "outputs": [
+        {
+          "components": [
+            {
+              "internalType": "uint256",
+              "name": "_id",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "pid",
+              "type": "uint256"
+            },
+            {
+              "internalType": "string",
+              "name": "quality",
+              "type": "string"
+            },
+            {
+              "internalType": "string",
+              "name": "quantity",
+              "type": "string"
+            },
+            {
+              "internalType": "string",
+              "name": "exporterLicense",
+              "type": "string"
+            },
+            {
+              "internalType": "string",
+              "name": "harvestor",
+              "type": "string"
+            },
+            {
+              "internalType": "string",
+              "name": "source",
+              "type": "string"
+            },
+            {
+              "internalType": "bool",
+              "name": "scanned",
+              "type": "bool"
+            }
+          ],
+          "internalType": "struct ProductReg.Product",
+          "name": "",
+          "type": "tuple"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "pid",
+          "type": "uint256"
+        }
+      ],
+      "name": "getProductById",
+      "outputs": [
+        {
+          "components": [
+            {
+              "internalType": "uint256",
+              "name": "_id",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "pid",
+              "type": "uint256"
+            },
+            {
+              "internalType": "string",
+              "name": "quality",
+              "type": "string"
+            },
+            {
+              "internalType": "string",
+              "name": "quantity",
+              "type": "string"
+            },
+            {
+              "internalType": "string",
+              "name": "exporterLicense",
+              "type": "string"
+            },
+            {
+              "internalType": "string",
+              "name": "harvestor",
+              "type": "string"
+            },
+            {
+              "internalType": "string",
+              "name": "source",
+              "type": "string"
+            },
+            {
+              "internalType": "bool",
+              "name": "scanned",
+              "type": "bool"
+            }
+          ],
+          "internalType": "struct ProductReg.Product",
+          "name": "",
+          "type": "tuple"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function",
+      "constant": true
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_id",
+          "type": "uint256"
+        }
+      ],
+      "name": "getQRCodeById",
+      "outputs": [
+        {
+          "internalType": "bytes",
+          "name": "",
+          "type": "bytes"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function",
+      "constant": true
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes",
+          "name": "qrCode",
+          "type": "bytes"
+        }
+      ],
+      "name": "scanQRCode",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "pid",
+          "type": "uint256"
+        }
+      ],
+      "name": "scanProduct",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ]
+  
+
+// }
+if (window.ethereum) {
+  // MetaMask is installed, enable the application
+  const web3 = new Web3(ethereum);
+  const contract = new web3.eth.Contract(contractABI, contractAddress);
+
+  // Function to mark the product as scanned in the smart contract
+  async function markProductAsScanned(pid) {
+    try {
+      const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
+      const account = accounts[0];
+
+      const result = await contract.methods.scanProduct(pid).send({ from: account, gasPrice: "10000000000", gas: 500000 });
+      console.log(result);
+      // Display success message or perform any other actions
+      alert("Product marked as scanned successfully.");
+      return true
+    } catch (error) {
+      console.error(error);
+      // Display error message or perform any other actions
+      alert("Product is already scanned.");
+      return false
+    }
+  }
+
+  // Function to retrieve product details from the blockchain
+  async function getProductDetails(pid) {
+    try {
+      // Check if the product has been scanned before
+      const isScanned = await markProductAsScanned(pid);
+
+      if (isScanned==true) {
+        // Retrieve the product details
+        const product = await contract.methods.getProductById(pid).call();
+
+        // Update the HTML elements with the product details
+        document.getElementById("pid").textContent = product.pid;
+        document.getElementById("quality").textContent = product.quality;
+        document.getElementById("quantity").textContent = product.quantity;
+        document.getElementById("exporterLicense").textContent = product.exporterLicense;
+        document.getElementById("harvester").textContent = product.harvestor;
+        document.getElementById("source").textContent = product.source;
+
+        // Show the product information section
+        document.getElementById("productInfo").style.display = "block";
+      }
+    } catch (error) {
+      console.error(error);
+      alert("Failed to retrieve product details. Please try again.");
+    }
+  }
+
+  // Handle form submission
+  document.getElementById("productForm").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const productId = document.getElementById("productId").value;
+
+    // Retrieve the product details
+    await getProductDetails(productId);
+  });
+
+  // Handle mark as scanned button click
+  document.getElementById("markScannedBtn").addEventListener("click", async function () {
+    var pid = document.getElementById("productId").value;
+    await markProductAsScanned(pid);
+    // alert("Product marked as scanned successfully.");
+  });
+} else {
+  // MetaMask is not installed, show an error message or redirect the user
+  alert("Please install MetaMask to use this application.");
+}
+
+
+
+</script>
+</body>
+</html>
+

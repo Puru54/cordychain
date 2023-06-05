@@ -1,0 +1,620 @@
+// pragma solidity ^0.8.0;
+// import "@openzeppelin/contracts/utils/Strings.sol";
+
+// contract productReg {
+//     using Strings for uint256; // import the Strings library
+//     mapping (bytes => bool) public qrCodesScanned;
+//     mapping (bytes => bool) public scannedQRCode;
+
+//     uint public productCount = 0;
+
+//     //model a product
+//     struct Product{
+//         uint _id;
+//         uint pid;
+//         string quality;
+//         string quantity;
+//         string exporterLicense;
+//         string harvestor;
+//         string source;
+//         string qrCode;
+//     }
+//     mapping(uint => Product) public products;
+
+
+//     constructor() {
+//         createProduct(1, "A", "2kg", "12P", "Puru", "Gasa");
+//     }
+
+
+//     function createProduct (uint pid, string memory _quality, string memory _quantity, string memory _exporterLicense, string memory _harvestor, string memory _source) public returns (Product memory) {
+//         productCount++;
+//         products[productCount] = Product(productCount, pid, _quality, _quantity, _exporterLicense, _harvestor, _source, "");
+//         generateQRCode(productCount);
+//         emit createProductEvent(productCount, pid, _quality, _quantity, _exporterLicense, _harvestor, _source);
+//         return products[productCount];
+//     }
+
+//     event createProductEvent(
+//         uint _id,
+//         uint indexed pid,
+//         string quality,
+//         string quantity,
+//         string exporterLicense,
+//         string harvestor,
+//         string source
+//     );
+
+//     function generateQRCode(uint _id) internal {
+//         require(_id > 0 && _id <= productCount, "Invalid product ID");
+//         products[_id].qrCode = _id.toString();
+//     }
+
+//     function getProductById(uint _id) public view returns (Product memory) {
+//         require(_id > 0 && _id <= productCount, "Invalid product ID");
+//         return products[_id];
+//     }
+
+//     function getQRCodeById(uint _id) public view returns (string memory) {
+//         require(_id > 0 && _id <= productCount, "Invalid product ID");
+//         return products[_id].qrCode;
+//     }
+// }
+
+// pragma solidity ^0.8.0;
+// import "@openzeppelin/contracts/utils/Strings.sol";
+// contract productReg {
+//     using Strings for uint256; // import the Strings library
+//     mapping (bytes => bool) public qrCodesScanned;
+//     mapping (bytes => bool) public scannedQRCode;
+
+//     uint public productCount = 0;
+
+//     //model a product
+//     struct Product{
+//         uint _id;
+//         uint pid;
+//         string quality;
+//         string quantity;
+//         string exporterLicense;
+//         string harvestor;
+//         string source;
+
+//     }
+//     mapping(uint => Product) public products;
+
+
+//     constructor() {
+//         createProduct(1,"A", "2kg", "12P", "Puru", "Gasa");
+//     }
+
+
+//     function createProduct (uint pid, string memory _quality,string memory _quantity,string memory _exporterLicense,string memory _harvestor,string memory _source) public returns (Product memory){
+//         productCount++;
+//         products[productCount]=Product (productCount, pid,_quality, _quantity, _exporterLicense,_harvestor,_source);
+//         emit createProductEvent(productCount,pid, _quality, _quantity, _exporterLicense, _harvestor, _source);
+//         return products[productCount];
+//     }
+
+//     event createProductEvent(
+//         uint _id,
+//         uint indexed pid,
+//         string quality,
+//         string quantity,
+//         string exporterLicense,
+//         string harvestor,
+//         string source
+        
+//     );
+//      function getProductById(uint _id) public view returns (Product memory) {
+//         require(_id > 0 && _id <= productCount, "Invalid product ID");
+//         return products[_id];
+//     }
+
+   
+// function generateQRCode(uint _id) public view returns (bytes memory) {
+//     require(_id > 0 && _id <= productCount, "Invalid product ID");
+//     string memory qrCodeData = _id.toString();
+//     bytes memory qrCode = abi.encodePacked(qrCodeData);
+//     return qrCode;
+// }
+
+// function scanQRCode(bytes memory _qrCode) public {
+//     require(!qrCodesScanned[_qrCode], "QR code already scanned");
+//     qrCodesScanned[_qrCode] = true;
+//     // perform any additional actions related to scanning the QR code
+// }
+// function getProductDetailsFromQRCode(bytes memory qrCode) public returns (string memory, string memory, string memory, string memory, string memory) {
+//     require(qrCode.length > 0, "Invalid QR code");
+
+//     // Check if QR code has been scanned before
+//     require(!scannedQRCode[qrCode], "QR code has already been scanned");
+
+//     // Decode PID from QR code
+//     uint pid = uint256(abi.decode(qrCode, (uint256)));
+
+//     // Retrieve product details using PID
+//     Product memory product = products[pid];
+
+//     // Mark QR code as scanned
+//     scannedQRCode[qrCode] = true;
+
+//     // Return product details
+//     return (product.quality, product.quantity, product.exporterLicense, product.harvestor,product.source);
+// }
+// }
+
+
+
+// pragma solidity ^0.8.0;
+
+// import "@openzeppelin/contracts/utils/Strings.sol";
+
+// contract productReg {
+//     using Strings for uint256; // import the Strings library
+
+//     mapping (bytes32 => bool) public qrCodesScanned;
+//     mapping (uint256 => bytes32) public productIdToQRCode;
+
+//     uint256 public productCount = 0;
+
+//     // Model a product
+//     struct Product {
+//         uint256 _id;
+//         uint256 pid;
+//         string quality;
+//         string quantity;
+//         string exporterLicense;
+//         string harvestor;
+//         string source;
+//     }
+
+//     mapping(uint256 => Product) public products;
+
+//     // constructor() {
+//     //     createProduct(1, "A", "2kg", "12P", "Puru", "Gasa");
+//     // }
+
+//     function createProduct(
+//         uint256 pid,
+//         string memory _quality,
+//         string memory _quantity,
+//         string memory _exporterLicense,
+//         string memory _harvestor,
+//         string memory _source
+//     ) public returns (Product memory) {
+//         productCount++;
+//         products[productCount] = Product(
+//             productCount,
+//             pid,
+//             _quality,
+//             _quantity,
+//             _exporterLicense,
+//             _harvestor,
+//             _source
+//         );
+
+//         emit createProductEvent(
+//             productCount,
+//             pid,
+//             _quality,
+//             _quantity,
+//             _exporterLicense,
+//             _harvestor,
+//             _source
+//         );
+
+//         return products[productCount];
+//     }
+
+//     event createProductEvent(
+//         uint256 _id,
+//         uint256 indexed pid,
+//         string quality,
+//         string quantity,
+//         string exporterLicense,
+//         string harvestor,
+//         string source
+//     );
+
+//     function getProductById(uint256 _id) public view returns (Product memory) {
+//         require(_id > 0 && _id <= productCount, "Invalid product ID");
+//         return products[_id];
+//     }
+
+//     function generateQRCode(uint256 _id) public returns (bytes32) {
+//         require(_id > 0 && _id <= productCount, "Invalid product ID");
+//         require(productIdToQRCode[_id] == bytes32(0), "QR code already generated for this product");
+
+//         bytes32 qrCode = keccak256(abi.encodePacked(_id.toString()));
+//         productIdToQRCode[_id] = qrCode;
+
+//         return qrCode;
+//     }
+
+//     function scanQRCode(bytes32 qrCode) public {
+//         require(qrCodesScanned[qrCode] == false, "QR code already scanned");
+//         qrCodesScanned[qrCode] = true;
+//     }
+// }
+
+
+// pragma solidity ^0.8.0;
+
+// import "@openzeppelin/contracts/utils/Strings.sol";
+
+// contract productReg {
+//     using Strings for uint256; // import the Strings library
+
+//     mapping (bytes32 => bool) public qrCodesScanned;
+//     mapping (uint256 => bytes32) public pidToQRCode;
+
+//     uint256 public productCount = 0;
+
+//     // Model a product
+//     struct Product {
+//         uint256 _id;
+//         uint256 pid;
+//         string quality;
+//         string quantity;
+//         string exporterLicense;
+//         string harvestor;
+//         string source;
+//     }
+
+//     mapping(uint256 => Product) public products;
+
+//     // constructor() {
+//     //     createProduct(1, "A", "2kg", "12P", "Puru", "Gasa");
+//     // }
+
+//     function createProduct(
+//         uint256 pid,
+//         string memory _quality,
+//         string memory _quantity,
+//         string memory _exporterLicense,
+//         string memory _harvestor,
+//         string memory _source
+//     ) public returns (Product memory) {
+//         productCount++;
+//         products[productCount] = Product(
+//             productCount,
+//             pid,
+//             _quality,
+//             _quantity,
+//             _exporterLicense,
+//             _harvestor,
+//             _source
+//         );
+
+//         emit createProductEvent(
+//             productCount,
+//             pid,
+//             _quality,
+//             _quantity,
+//             _exporterLicense,
+//             _harvestor,
+//             _source
+//         );
+
+//         return products[productCount];
+//     }
+
+//     event createProductEvent(
+//         uint256 _id,
+//         uint256 indexed pid,
+//         string quality,
+//         string quantity,
+//         string exporterLicense,
+//         string harvestor,
+//         string source
+//     );
+
+//     function getProductByPid(uint256 pid) public view returns (Product memory) {
+//         require(pid > 0 && pid <= productCount, "Invalid product ID");
+//         return products[pid];
+//     }
+
+//     function generateQRCode(uint256 pid) public returns (bytes32) {
+//         require(pid > 0 && pid <= productCount, "Invalid product ID");
+//         require(pidToQRCode[pid] == bytes32(0), "QR code already generated for this product");
+
+//         bytes32 qrCode = keccak256(abi.encodePacked(pid.toString()));
+//         pidToQRCode[pid] = qrCode;
+
+//         return qrCode;
+//     }
+
+//     function scanQRCode(bytes32 qrCode) public {
+//         require(qrCodesScanned[qrCode] == false, "QR code already scanned");
+//         qrCodesScanned[qrCode] = true;
+//     }
+// }
+
+
+// const productReg = artifacts.require("productReg");
+// const truffleAssert = require('truffle-assertions');
+
+// contract("productReg", (accounts) => {
+//   let instance;
+
+//   before(async () => {
+//     instance = await productReg.deployed();
+//   });
+
+//   it("should deploy smart contract properly", async () => {
+//     const deployed = await productReg.deployed();
+//     assert(deployed, "Contract was not deployed");
+//     console.log("Smart contract deployed successfully");
+//   });
+
+//   beforeEach(async () => {
+//     instance = await productReg.new();
+//   });
+
+//   it("should create new products", async () => {
+//     const pid = 2;
+//     await instance.createProduct(pid, "Ab", "2kg", "12P", "Puru", "Gasa");
+
+//     const count = await instance.productCount();
+//     assert.equal(count, 1);
+//     const product = await instance.products(1);
+//     assert.equal(product.pid, pid);
+//     console.log("New product created:", product);
+//   });
+
+//   it("should generate a QR code for a valid product ID", async () => {
+//     const pid = 4;
+//     await instance.createProduct(pid, "Ab", "2kg", "12P", "Puru", "Gasa");
+
+//     const qrCode = await instance.generateQRCode(pid);
+//     assert(qrCode.length > 0, "QR code should not be empty");
+
+//     const storedQRCode = await instance.pidToQRCode(pid);
+//     assert.equal(storedQRCode, qrCode, "Generated QR code should be stored");
+//     console.log("QR code generated:", qrCode);
+//   });
+
+//   // it("should mark a scanned QR code", async () => {
+//   //   const qrCode = await instance.generateQRCode(1);
+//   //   console.log("Generated QR code:", qrCode);
+
+//   //   const receipt = await instance.scanQRCode(qrCode);
+//   //   console.log("Scan QR code receipt:", receipt);
+
+//   //   assert(receipt.receipt.status, "Scanning QR code should succeed");
+
+//   //   const isScanned = await instance.qrCodesScanned(qrCode);
+//   //   assert(isScanned, "QR code should be marked as scanned");
+//   //   console.log("QR code marked as scanned:", qrCode);
+//   // });
+
+//   it("should throw an error for an invalid product ID", async () => {
+//     await truffleAssert.reverts(instance.getProductByPid(0), "Invalid product ID");
+//     await truffleAssert.reverts(instance.getProductByPid(100), "Invalid product ID");
+//     await truffleAssert.reverts(instance.generateQRCode(0), "Invalid product ID");
+//     await truffleAssert.reverts(instance.generateQRCode(100), "Invalid product ID");
+//     console.log("Error: Invalid product ID");
+//   });
+// });
+
+
+
+    
+
+
+
+// const productReg = artifacts.require("productReg");
+// const truffleAssert = require('truffle-assertions');
+
+// contract("productReg", (accounts) => {
+//   let instance;
+
+//   before(async () => {
+//     instance = await productReg.deployed();
+//   });
+
+//   it("should deploy smart contract properly", async () => {
+//     const deployed = await productReg.deployed();
+//     assert(deployed, "contract was not deployed");
+//   });
+
+//   beforeEach(async () => {
+//     instance = await productReg.new();
+//   });
+ 
+//   it("should create new products", async () => {
+//     const pid = 2;
+//     await instance.createProduct(pid, "Ab", "2kg", "12P", "Puru", "Gasa");
+
+//     const count = await instance.productCount();
+//     assert.equal(count, 1);
+
+//     const product = await instance.products(1);
+//     assert.equal(product.pid, pid);
+//   });
+
+//   it("should generate a QR code for a valid product ID", async () => {
+//     const pid = 2;
+//     const qrCode = await instance.generateQRCode(pid);
+//     assert(qrCode.length > 0, "QR code should not be empty");
+
+//     const storedQRCode = await instance.productIdToQRCode(pid);
+//     assert.equal(storedQRCode, qrCode, "Generated QR code should be stored");
+//   });
+
+//   it("should mark a scanned QR code", async () => {
+//     const qrCode = await instance.generateQRCode(1);
+
+//     const receipt = await instance.scanQRCode(qrCode);
+
+//     assert(receipt.receipt.status, "Scanning QR code should succeed");
+
+//     const isScanned = await instance.qrCodesScanned(qrCode);
+//     assert(isScanned, "QR code should be marked as scanned");
+//   });
+
+//   it("should throw error for invalid product ID", async () => {
+//     await truffleAssert.reverts(instance.getProductById(0), "Invalid product ID");
+//     await truffleAssert.reverts(instance.getProductById(100), "Invalid product ID");
+//     await truffleAssert.reverts(instance.generateQRCode(0), "Invalid product ID");
+//     await truffleAssert.reverts(instance.generateQRCode(100), "Invalid product ID");
+//   });
+// });
+
+
+
+// // // #####################################################################################################3
+// // const productReg = artifacts.require("productReg");
+// // const truffleAssert = require('truffle-assertions');
+
+
+
+
+
+// // contract("productReg", (accounts) => {
+// //   let instance;
+
+// //   before(async () => {
+// //     instance = await productReg.deployed();
+// //   });
+
+// //   it("should deploy smart contract properly", async () => {
+// //     const deployed = await productReg.deployed();
+// //     assert(deployed, "contract was not deployed");
+// //   });
+
+// //   beforeEach(async () => {
+// //     s = await productReg.new();
+// //   });
+ 
+// //   it("should create new products", async ()=>{
+// //     return productReg.deployed().then((instance)=>{
+// //         s=instance;
+// //         pid=2;
+// //         return s.createProduct(pid,"Ab", "2kg", "12P", "Puru", "Gasa");
+
+// //     }).then((transaction)=>{
+// //         isvalidAddress(transaction.tx)
+// //         isvalidAddress(transaction.receipt.blockHash);
+// //         return s.productCount()
+// //     }).then((count)=>{
+// //         assert.equal(count,2)
+// //         return s.products(2);
+// //     }).then((products)=>{
+// //         assert.equal(products.pid, pid)
+// //     })
+
+// //   })
+ 
+// //     // it("should generate a QR code for a valid product ID", async () => {
+// //     //   const instance = await productReg.deployed();
+// //     //   const qrCode = await instance.generateQRCode(1);
+// //     //   assert(qrCode.length > 0, "QR code should not be empty");
+// //     // });
+
+  
+
+
+// //   it("should throw error for invalid product ID", async () => {
+// //     await truffleAssert.reverts(instance.getProductById(0), "Invalid product ID");
+// //     await truffleAssert.reverts(instance.getProductById(100), "Invalid product ID");
+// //     await truffleAssert.reverts(instance.generateQRCode(0), "Invalid product ID");
+// //     await truffleAssert.reverts(instance.generateQRCode(100), "Invalid product ID");
+// //   });
+// // });
+
+// // // check if address is valid 
+// // function isvalidAddress(address) {
+// //     assert.notEqual(address, 0x0)
+// //     assert.notEqual(address, '')
+// //     assert.notEqual(address, null)
+// //     assert.notEqual(address, undefined)
+// // }
+
+  
+// //   //   it("should mark QR code as scanned for valid QR code", async () => {
+// //   //     const qrCode = web3.utils.hexToBytes(await instance.generateQRCode(1));
+// //   //     await instance.scanQRCode(qrCode);
+// //   //     const isScanned = await instance.qrCodesScanned(qrCode);
+// //   //     assert.isTrue(isScanned);
+// //   //   });
+
+// //   //   it("should revert if QR code is already scanned", async () => {
+// //   //     const qrCode = web3.utils.hexToBytes(await instance.generateQRCode(1));
+// //   //     await instance.scanQRCode(qrCode);
+// //   //     await truffleAssert.reverts(instance.scanQRCode(qrCode), "QR code already scanned");
+// //   //   });
+ 
+
+  
+// //   //   it("should return product details for valid QR code", async () => {
+// //   //     const qrCode = web3.utils.hexToBytes(await instance.generateQRCode(1));
+// //   //     const [quality, quantity, exporterLicense, harvestor, source] = await instance.getProductDetailsFromQRCode(qrCode);
+// //   //     assert.equal(quality, "A");
+// //   //     assert.equal(quantity, "2kg");
+// //   //     assert.equal(exporterLicense, "12P");
+// //   //     assert.equal(harvestor, "Puru");
+// //   //     assert.equal(source, "Gasa");
+// //   //   });
+
+// //   //   it("should revert for invalid QR code", async () => {
+// //   //     await truffleAssert.reverts(instance.getProductDetailsFromQRCode(""), "Invalid QR code");
+// //   //   });
+
+// //   //   it("should revert if QR code has already been scanned", async () => {
+// //   //     const qrCode = web3.utils.hexToBytes(await instance.generateQRCode(1));
+// //   //     await instance.scanQRCode(qrCode);
+// //   //     await truffleAssert.reverts(instance.getProductDetailsFromQRCode(qrCode), "QR code has already been scanned");
+// //   //   });
+ 
+
+
+
+// // //############################################################################################################################################3
+// // // it("should create new products", async () => {
+// //   //   let pid = 2;
+// //   //   let transaction = await s.createProduct(pid,"Ab", "2kg", "12P", "Puru", "Gasa");
+// //   //   assert.equal(await s.productCount(), 2);
+// //   //   let products = await s.products(2);
+// //   //   assert.equal(products.pid, pid);
+// //   // });
+
+// //   //   describe("getProductDetailsFromQRCode()", () => {
+// // //     beforeEach(async () => {
+// // //       // create a new product for testing
+// // //       // const pid = 2;
+// // //       // const quality = "Ab";
+// // //       // const quantity = "2kg";
+// // //       // const exporterLicense = "12P";
+// // //       // const harvestor = "Puru";
+// // //       // const source = "Gasa";
+// // //       await productReg.createProduct(pid, quality, quantity, exporterLicense, harvestor, source);
+// // //     });
+    
+// // //   it("should return product details from valid QR code", async () => {
+// // //     const pid = 2;
+// // //     const qrCode = await instance.generateQRCode(1); ;
+// // //     const [quality, quantity, exporterLicense, harvestor, source] = await productReg.getProductDetailsFromQRCode(qrCode);
+// // //     expect(quality).to.equal("Ab");
+// // //     expect(quantity).to.equal("2kg");
+// // //     expect(exporterLicense).to.equal("12P");
+// // //     expect(harvestor).to.equal("Puru");
+// // //     expect(source).to.equal("Gasa");
+// // // });
+// //   // it("should revert if QR code is invalid", async () => {
+// //   //   const invalidQRCode = ethers.utils.formatBytes32String("");
+// //   //   await expect(productReg.getProductDetailsFromQRCode(invalidQRCode)).to.be.revertedWith("Invalid QR code");
+// //   // });
+
+// //   // it("should revert if QR code is already scanned", async () => {
+// //   //   const pid = 2;
+// //   //   const qrCode = ethers.utils.defaultAbiCoder.encode(["uint256"], [pid]);
+// //   //   await productReg.scanQRCode(qrCode);
+// //   //   await expect(productReg.getProductDetailsFromQRCode(qrCode)).to.be.revertedWith("QR code has already been scanned");
+// //   // });
+
+// //   // it("should revert if QR code is invalid", async () => {
+// //   //     const invalidQRCode = ethers.utils.formatBytes32String("");
+// //   //     await expect(productReg.getProductDetailsFromQRCode(invalidQRCode)).to.be.revertedWith("Invalid QR code");
+// //   //   });
