@@ -3,7 +3,7 @@ document.querySelector('.form').addEventListener('submit', (e) => {
     const name = document.getElementById('name').value
     const email = document.getElementById('email').value
     const password = document.getElementById('password').value
-    update(name,email, password)
+    update(name,email,password)
 })
 
 const update = async (name, email,password) => {
@@ -12,6 +12,7 @@ const update = async (name, email,password) => {
             method: 'PATCH',
             url: `https://cordychain.onrender.com/api/v1/users/email/${email}`,
             data: {
+                name,
                 email,
                 password,
             
