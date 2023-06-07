@@ -45,7 +45,7 @@
         </div>
         <ul class="list-unstyled components">
           <li class="active">
-            <a href="dashedboard.html" class="dashboard"
+            <a href="/admin" class="dashboard"
               ><i class="material-icons">dashboard</i><span>Dashboard</span></a
             >
           </li>
@@ -56,20 +56,20 @@
                 ><i class="material-icons">person</i><span>user</span></a
               >
             </li>
-            <li class="d-lg-block d-md-block d-xl-block d-sm-block">
+            <!-- <li class="d-lg-block d-md-block d-xl-block d-sm-block">
               <a href="packages.html"
                 ><i class="material-icons">inventory</i><span>Packages</span></a
-              >
+              > -->
             </li>
             <li class="d-lg-block d-md-block d-xl-block d-sm-block">
-              <a href="setting.html"
+              <a href="/admin-setting"
                 ><i class="material-icons">settings</i><span>setting</span></a
               >
             </li>
 
             <li class="d-lg-block d-md-block d-xl-block d-sm-block">
               <a href="#"
-                ><i class="material-icons">logout</i><span>logout</span></a
+                ><i class="material-icons logout" id="logout">logout</i><span>logout</span></a
               >
             </li>
           </div>
@@ -117,7 +117,7 @@
                   <li class="nav-item">
                     <a class="nav-link" href="#">
                       <span class="material-icons">person</span>
-                      <!-- <img src="img/logo.png" alt="" class=""/> 
+                       <img src="img/logo.png" alt="" class=""/> 
                     </a>
                   </li>
                 </ul>
@@ -242,6 +242,8 @@ document.querySelector('.form').addEventListener('submit', (e) => {
 
 
     <script type="module" src="./js/adminUsers.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.27.2/axios.min.js"></script> -->
+  <script type="module" src="./js/dashboard.js"></script>
     
     
   </body>
