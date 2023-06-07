@@ -14,14 +14,14 @@ fetch('https://cordychain.onrender.com/api/v1/bafra')
                 <tr>
                     <td>${value.name1}</td>
                     <td>${value.bafraId1}</td>
-                    <td><button class="btn btn-danger" onclick="removeUser(${value.bafraId1})">Remove</button></td>
+                    <td><button class="btn btn-danger" onclick="removeUser(${value._id})">Remove</button></td>
                 </tr>`;
             i++;
         });
         document.querySelector(".authBAFRA").innerHTML = divdata;
     });
 
-function removeUser(bafraId) {
+function removeUser(_id) {
     // Perform the necessary logic to remove the user with the specified bafraId
     console.log("Removing user with bafraId:", bafraId);
 
