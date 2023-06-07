@@ -1,73 +1,69 @@
-fetch('https://cordychain.onrender.com/api/v1/bafra').then((jsonData)=>{
-    //console.log(jsonData)//data in json formate
-    return jsonData.json()//conerted to object
-}).then((objectData)=>{
-    console.log("data",objectData.data[0])
-    console.log(objectData.data.length)
-    let i = 1;
-    var divdata=""
-    var details=""
-    objectData.data.map((value)=>{
-        console.log (value.name1)
-        divdata+=`
-       
-      
-        <tr>
-          <td>`+value.name1+`</td>
-          <td>`+value.bafraId1+`</td>
-          <td><button class="btn btn-danger">Remove</button></td>
-        </tr>
-        
-     
-        
-        `
-
-        
-            i++
+fetch('https://cordychain.onrender.com/api/v1/bafra')
+    .then((jsonData) => {
+        return jsonData.json();
     })
-    document.querySelector(".authBAFRA").innerHTML=divdata
-    
+    .then((objectData) => {
+        console.log("data", objectData.data[0]);
+        console.log(objectData.data.length);
+        let i = 1;
+        var divdata = "";
+        var details = "";
+        objectData.data.map((value) => {
+            console.log(value.name1);
+            divdata += `
+                <tr>
+                    <td>${value.name1}</td>
+                    <td>${value.bafraId1}</td>
+                    <td><button class="btn btn-danger" onclick="removeUser(${value.bafraId1})">Remove</button></td>
+                </tr>`;
+            i++;
+        });
+        document.querySelector(".authBAFRA").innerHTML = divdata;
+    });
 
-})
+function removeUser(bafraId) {
+    // Perform the necessary logic to remove the user with the specified bafraId
+    console.log("Removing user with bafraId:", bafraId);
 
-//import { showAlert } from "./alert.js"
+    // Make an API call to delete the user with the specified bafraId
+    fetch(`https://cordychain.onrender.com/api/v1/bafra/${bafraId}`, {
+        method: 'DELETE',
+    })
+        .then((response) => {
+            if (response.ok) {
+                console.log("User deleted successfully");
+                // Reload the data or update the displayed table accordingly
+                fetchDataAndUpdateTable();
+            } else {
+                console.log("Error deleting user");
+            }
+        })
+        .catch((error) => {
+            console.log("Error deleting user:", error);
+        });
+}
 
-// export const addBafra = async (name1, bafraId1) => {
-//     try {
-//         const res = await axios({
-//             method: 'POST',
-//             url: 'http://localhost:4002/api/v1/bafra',
-//             data: {
-//                 name1,
-//                 bafraId1,
-                
-                
-//             },
-//         })
-        
-//         if (res.data.status === 'success') {
-//             showAlert('success', 'Bafra Authorized successfully!')
-//             window.setTimeout(() => {
-//                 location.assign('/admin-users')
-//             }, 1500)
-//         }
-//     } catch (err) {
-//         // let message = 
-//         //     typeof err.response !== 'undefined'
-//         //         ? err.response.data.message
-//         //         : err.message
-//         // showAlert('error', 'Error: Passwords are not the same!', message)
-//     }
-// }
-
-// document.querySelector('.form').addEventListener('submit', (e) => {
-//     e.preventDefault()
-//     const name1 = document.getElementById('name').value
-//     const bafraId1=document.getElementById('bafraId').value
-
-  
-//     addBafra(name1, bafraId1)
-
-    
-// })
-
+function fetchDataAndUpdateTable() {
+    fetch('https://cordychain.onrender.com/api/v1/bafra')
+        .then((jsonData) => {
+            return jsonData.json();
+        })
+        .then((objectData) => {
+            console.log("data", objectData.data[0]);
+            console.log(objectData.data.length);
+            let i = 1;
+            var divdata = "";
+            var details = "";
+            objectData.data.map((value) => {
+                console.log(value.name1);
+                divdata += `
+                    <tr>
+                        <td>${value.name1}</td>
+                        <td>${value.bafraId1}</td>
+                        <td><button class="btn btn-danger" onclick="removeUser(${value.bafraId1})">Remove</button></td>
+                    </tr>`;
+                i++;
+            });
+            document.querySelector(".authBAFRA").innerHTML = divdata;
+        });
+}
