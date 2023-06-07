@@ -235,7 +235,7 @@ h1{
     font-size: 3.875rem;
     margin-bottom:1.25rem;
     font-weight: 600;
-    color:var(--text-white);
+    color:var(--text-black);
     font-family: var(--secondary-font);
 }
 
@@ -376,7 +376,7 @@ p {
     transition:0.3s ease-in-out;
 }
 .highlight {
-    background: linear-gradient(120deg, #004caa 0%, #004caa 90%);
+    background: linear-gradient(45deg, black, transparent);
     background-repeat: no-repeat;
     background-size: 100% 100%;
     background-position: 0 60%;
@@ -386,7 +386,7 @@ p {
 }
 
 .highlight-c{
-    background:  #2f69af;
+    background:transparent;
     background-repeat: no-repeat;
     background-size: 100% 100%;
      background-position: 0 60%;
