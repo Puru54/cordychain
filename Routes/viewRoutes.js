@@ -13,7 +13,7 @@ router.get('/otp',viewController.getOtp)
 router.get('/prod-reg',authController.protect, viewController.getRegForm)
 router.get('/prod-scan',viewController.getScan)
 router.get('/admin',authController.protect,viewController.getAdmin)
-router.get('/admin-packages',authController.protect,viewController.getPackages)
+// router.get('/admin-packages',authController.protect,viewController.getPackages)
 router.get('/admin-users',authController.protect,viewController.getUsers)
 router.get('/admin-setting',authController.protect,viewController.getAdminSetting)
 

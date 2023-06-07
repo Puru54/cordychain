@@ -37,9 +37,9 @@ exports.getAdmin = (req, res) => {
     res.sendFile(path.join(__dirname,'../','Views','dashedboard.html'))
 }
 
-exports.getPackages = (req, res) => {
-    res.sendFile(path.join(__dirname,'../','Views','packages.html'))
-}
+// exports.getPackages = (req, res) => {
+//     res.sendFile(path.join(__dirname,'../','Views','packages.html'))
+// }
 
 exports.getUsers = (req, res) => {
     res.sendFile(path.join(__dirname,'../','Views','user.html'))
