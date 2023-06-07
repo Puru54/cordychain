@@ -13,7 +13,7 @@
     />
     <title>dashboard</title>
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" href="./CSS/bootstrap.min.css" />
     <!----css3---->
     <link rel="stylesheet" href="./CSS/custom.css" />
     <link rel="stylesheet" href="./CSS/form.css" />
@@ -68,8 +68,8 @@
             </li>
 
             <li class="d-lg-block d-md-block d-xl-block d-sm-block">
-              <a href="#"
-                ><i class="material-icons logout" id="logout">logout</i><span>logout</span></a
+              <a
+                ><i class="material-icons" onclick="logout()" >logout</i><span>logout</span></a
               >
             </li>
           </div>
@@ -78,53 +78,8 @@
 
       <!-- Page Content  -->
       <div id="content">
-        <!-- <div class="top-navbar">
-          <nav class="navbar navbar-expand-lg">
-            <div class="container-fluid">
-              <button
-                type="button"
-                id="sidebarCollapse"
-                class="d-xl-block d-lg-block d-md-mone d-none"
-              >
-                <span class="material-icons">sort</span>
-              </button>
-
-              <a class="navbar-brand" href="#"> Dashboard </a>
-
-              <button
-                class="d-inline-block d-lg-none ml-auto more-button"
-                type="button"
-                data-toggle="collapse"
-                data-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent"
-                aria-expanded="false"
-                aria-label="Toggle navigation"
-              >
-                <span class="material-icons">sort</span>
-              </button>
-
-              <div
-                class="collapse navbar-collapse d-lg-block d-xl-block d-sm-none d-md-none d-none"
-                id="navbarSupportedContent"
-              >
-                <ul class="nav navbar-nav ml-auto">
-                  <li class="nav-item">
-                    <a class="nav-link" href="#">
-                      <span class="material-icons">search</span>
-                      <input type="text" />
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="#">
-                      <span class="material-icons">person</span>
-                       <img src="img/logo.png" alt="" class=""/> 
-                    </a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </nav>
-        </div> -->
+       
+        
 
         <div class="main-content">
          
@@ -146,11 +101,7 @@
                       </tr>
                     </thead>
                     <tbody class="authBAFRA">
-                      <!-- <tr>
-                        <td>Bob Williams</td>
-                        <td>kencho89@gmail.com</td>
-                        <td><button class="btn btn-primary">Remove</button></td>
-                      </tr> -->
+                    
                     </tbody>
                   </table>
                 </div>
@@ -179,12 +130,8 @@
       </div>
     </div>
 
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="js/jquery-3.3.1.slim.min.js"></script>
-    <!-- <script src="js/popper.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/jquery-3.3.1.min.js"></script> -->
+   
 
     <script type="text/javascript">
       $(document).ready(function () {
@@ -220,11 +167,7 @@
             }, 1500)
         }
     } catch (err) {
-        // let message = 
-        //     typeof err.response !== 'undefined'
-        //         ? err.response.data.message
-        //         : err.message
-        // showAlert('error', 'Error: Passwords are not the same!', message)
+       
     }
 }
 
