@@ -243,7 +243,30 @@ document.querySelector('.form').addEventListener('submit', (e) => {
 
     <script type="module" src="./js/adminUsers.js"></script>
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.27.2/axios.min.js"></script> -->
-  <script type="module" src="./js/dashboard.js"></script>
+  <!-- <script type="module" src="./js/dashboard.js"></script>
+   -->
+   <script>
+    const logout = async () => {
+    try{
+        const res = await axios({
+            method: "POST",
+            url: "https://cordychain.onrender.com/api/v1/users/logout",
+
+        })
+        if (res.data.status === 'success') {
+            location.assign('./')
+        }
+    }catch(err){
+        console.log('error', 'Error logging out! try again.')
+    }
+}
+var obj
+if (document.cookie) {
+    obj = JSON.parse(document.cookie.substring(6))
+}else {
+    obj = JSON.parse('{}')
+}
+  </script>
     
     
   </body>
