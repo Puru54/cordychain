@@ -15,7 +15,7 @@ fetch('https://cordychain.onrender.com/api/v1/bafra').then((jsonData)=>{
         <tr>
           <td>`+value.name1+`</td>
           <td>`+value.bafraId1+`</td>
-          <td><button class="btn btn-primary">Remove</button></td>
+          <td><button class="btn btn-danger">Remove</button></td>
         </tr>
         
      

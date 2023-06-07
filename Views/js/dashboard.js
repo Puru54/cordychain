@@ -15,7 +15,7 @@ fetch('https://cordychain.onrender.com/api/v1/users').then((jsonData)=>{
         <tr>
           <td>`+value.name+`</td>
           <td>`+value.email+`</td>
-          <td><button class="btn btn-primary">Action</button></td>
+          <td><button class="btn btn-danger">Remove</button></td>
         </tr>
         
      
