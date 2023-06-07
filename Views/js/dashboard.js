@@ -30,29 +30,29 @@ fetch('https://cordychain.onrender.com/api/v1/users').then((jsonData)=>{
 
 })
 
-import {showAlert} from './alert.js'
-//logging out
-const logout = async () => {
-    try{
-        const res = await axios({
-            method: "POST",
-            url: "https://cordychain.onrender.com/api/v1/users/logout",
+// import {showAlert} from './alert.js'
+// //logging out
+// const logout = async () => {
+//     try{
+//         const res = await axios({
+//             method: "POST",
+//             url: "https://cordychain.onrender.com/api/v1/users/logout",
 
-        })
-        if (res.data.status === 'success') {
-            location.reload(true)
-        }
-    }catch(err){
-        showAlert('error', 'Error logging out! try again.')
-    }
-}
-var obj
-if (document.cookie) {
-    obj = JSON.parse(document.cookie.substring(6))
-}else {
-    obj = JSON.parse('{}')
-}
+//         })
+//         if (res.data.status === 'success') {
+//             location.reload(true)
+//         }
+//     }catch(err){
+//         showAlert('error', 'Error logging out! try again.')
+//     }
+// }
+// var obj
+// if (document.cookie) {
+//     obj = JSON.parse(document.cookie.substring(6))
+// }else {
+//     obj = JSON.parse('{}')
+// }
 
-var doc = document.querySelector('#logout')
+// var doc = document.querySelector('#logout')
 
-  doc.addEventListener('click', (e) => logout())
+//   doc.addEventListener('click', (e) => logout())

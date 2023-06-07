@@ -67,8 +67,8 @@
             </li>
 
             <li class="d-lg-block d-md-block d-xl-block d-sm-block">
-              <a href="#"
-                ><i class="material-icons logout" >logout</i><span>logout</span></a
+              <a
+                ><i class="material-icons" onclick="logout()" >logout</i><span>logout</span></a
               >
             </li>
           </div>
@@ -163,6 +163,28 @@
     </script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.27.2/axios.min.js"></script>
   <script type="module" src="./js/dashboard.js"></script>
+  <script>
+    const logout = async () => {
+    try{
+        const res = await axios({
+            method: "POST",
+            url: "https://cordychain.onrender.com/api/v1/users/logout",
+
+        })
+        if (res.data.status === 'success') {
+            location.reload(true)
+        }
+    }catch(err){
+        console.log('error', 'Error logging out! try again.')
+    }
+}
+var obj
+if (document.cookie) {
+    obj = JSON.parse(document.cookie.substring(6))
+}else {
+    obj = JSON.parse('{}')
+}
+  </script>
 
   </body>
 </html>
