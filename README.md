@@ -39,11 +39,16 @@ A unique QR code is attached to the package.
 Users can scan the QR code on the package to retrieve the information of the cordyceps, including its authenticity and source.
 
 
+
 Non-Functional Requirements 
-❖	Immutability: All data of cordyceps recorded on the blockchain is tamper-resistant and cannot be altered.
-❖	Transparency: Transactions are visible to all relevant parties, promoting trust and authenticity.
-❖	Security: Blockchain's cryptographic features ensure the highest level of data security.
-❖	Decentralization: Cordychain operates on a decentralized network, reducing the risk of a single point of failure.
+
+Immutability: All data of cordyceps recorded on the blockchain is tamper-resistant and cannot be altered.
+
+Transparency: Transactions are visible to all relevant parties, promoting trust and authenticity.
+
+Security: Blockchain's cryptographic features ensure the highest level of data security.
+
+Decentralization: Cordychain operates on a decentralized network, reducing the risk of a single point of failure.
 
 
 
