@@ -50,7 +50,7 @@ Security: Blockchain's cryptographic features ensure the highest level of data s
 
 Decentralization: Cordychain operates on a decentralized network, reducing the risk of a single point of failure.
 
-
+This is the Link to all the Documents related to the project: https://drive.google.com/drive/folders/1-CXCnqzWme4hj9X4wB2zezG_c4tO7D8s?usp=sharing
 
 
 
